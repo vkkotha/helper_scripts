@@ -59,7 +59,7 @@ def logStartup(len, output, filter, max_repeat, max_occurence, algorithm):
     logging.info('----------------------------------------------')
     logging.info(f'Python Version: {sys.version}')
     logging.info(f'CharCount: {charsLen}')
-    logging.info(f'Lenght: {len}, Algorithm: {algorithm}')
+    logging.info(f'Length: {len}, Algorithm: {algorithm}')
     logging.info(f'Filter: {filter}, max-repeat: {max_repeat}, max-occurence: {max_occurence}')
     logging.info(f'Destination: {"stdout" if output is None else click.format_filename(output)}')
     logging.info('----------------------------------------------')
@@ -68,7 +68,6 @@ def logFinish(processed_count, filtered_count, count):
     logging.info(f'Finished: [processed: {processed_count} filtered: {filtered_count} generated: {count}]')
 
 def generator(algorithm, n):
-    print (f'alg: {algorithm}, len: {n}')
     if (algorithm == ALG_POS):
         yield from generator_pos(n)
     else:
