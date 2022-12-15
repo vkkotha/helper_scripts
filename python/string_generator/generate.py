@@ -16,13 +16,13 @@ out_file = None
 @click.command()
 @click.option('-l', '--len', default=0, required=True, type=click.IntRange(0, 64), help='string length to generate', show_default=True)
 @click.option('-o', '--output', type=click.Path(exists=True), help='path location for generated files.', metavar='<dir>')
-@click.option('-f', '--filter', is_flag=True, default=False, show_default=True, help='turn on filtering.')
+@click.option('--filter', is_flag=True, default=False, show_default=True, help='turn on filtering.')
 @click.option('-mr', '--max-repeat', default=0, help='filter if character repeats more than this value. should be >0 to be active.')
 @click.option('-mo', '--max-occurence', default=0, help='filter if chracter occurs anywhere in generated string, more than this value. should be > 0 to be active.')
 @click.option('-alg', '--algorithm', default=ALG_BRUTE, show_default=True, type=click.Choice([ALG_BRUTE, ALG_POS]), help='choose algorithm to use to generate strings.')
 def gen(len, output, filter, max_repeat, max_occurence, algorithm):
     """ 
-    A all combination string generator.\n
+    A all character combination string generator.\n
     Generates string of given length, filtering out for repeats, occurences. 
     """
     logStartup(len, output, filter, max_repeat, max_occurence, algorithm)

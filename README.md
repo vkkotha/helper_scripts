@@ -11,7 +11,7 @@ Here is how you install virtualenv in debian based linux (ubuntu)
 
 To Create a virutal environment for this project goto python folder and run
 >     $ cd python
->     $ virtualenv venv
+>     $ virtualenv --python="/usr/bin/python3" venv
 >     $ . venv/bin/activate
 
 Make sure your pip is upto date by running
