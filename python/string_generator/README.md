@@ -29,9 +29,12 @@ Run help to see usage.
 
 ## Limitations
 - If you generate a string of length 5, with 62 character set, then it will generate 32^5 = 916,132,832. Each string is 5 Bytes, so your file size will be around 4.6 GB. This exponentilly grows with each extra character.
-Geneating all combinations 32 char string, Will generate 64^32 = 2.27 x e57. This is a  58 digit number. Storing all this requires 2.27 x e33 Yotta Bytes (10^24)
+Geneating all combinations 32 char string, Will generate 64^32 = 2.27 x e57. This is a  58 digit number. Storing all this requires 2.27 x e33 Yotta Bytes, where each Yotta Byte is  (10^12 TerraBytes, That's 1 Trillion 1TB Disks.)
 - Filtering on large numbers is also going to be slow, as each string generated need to be checked for occurrences, repeates, so you may not see any results for a while in the output file.
 
 ## TODO
 - implement faster generation/filtering
 - options to stop the program after generating, n strings.
+- Generate multiple files, with some parrallel processing.
+- Generate all lenghts below the given length.
+- Experment with writing first level strings to a file, and use it to generate nexte level.
