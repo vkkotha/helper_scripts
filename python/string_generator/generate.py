@@ -9,7 +9,7 @@ chars = chars + chars.upper() + '0123456789'
 charsLen = len(chars)
 
 ALG_BRUTE = 'BRUTE'
-ALG_POS = 'POS'
+ALG_MATH = 'MATH'
 out_file = None
 
 
@@ -19,7 +19,7 @@ out_file = None
 @click.option('--filter', is_flag=True, default=False, show_default=True, help='turn on filtering.')
 @click.option('-mr', '--max-repeat', default=0, help='filter if character repeats more than this value. should be >0 to be active.')
 @click.option('-mo', '--max-occurence', default=0, help='filter if chracter occurs anywhere in generated string, more than this value. should be > 0 to be active.')
-@click.option('-alg', '--algorithm', default=ALG_BRUTE, show_default=True, type=click.Choice([ALG_BRUTE, ALG_POS]), help='choose algorithm to use to generate strings.')
+@click.option('-alg', '--algorithm', default=ALG_BRUTE, show_default=True, type=click.Choice([ALG_BRUTE, ALG_MATH]), help='choose algorithm to use to generate strings.')
 def gen(len, output, filter, max_repeat, max_occurence, algorithm):
     """ 
     A all character combination string generator.\n
@@ -68,26 +68,42 @@ def logFinish(processed_count, filtered_count, count):
     logging.info(f'Finished: [processed: {processed_count} filtered: {filtered_count} generated: {count}]')
 
 def generator(algorithm, n):
-    if (algorithm == ALG_POS):
-        yield from generator_pos(n)
+    if (algorithm == ALG_MATH):
+        yield from generator_math(n)
     else:
         yield from generator_brute(n)
 
-def generator_brute(len):
-    if ( len < 1):
+def generator_brute(l):
+    if ( l < 1):
         return
 
-    if (len == 1):
+    if (l == 1):
         for c in chars:
             yield c
     else:
         for cc in chars:
-            for postStr in generator_brute(len-1):
+            for postStr in generator_brute(l-1):
                 yield cc + postStr
 
-def generator_pos(len):
-    print(f'POS Generator {len}')
-    yield None
+def generator_math(l):
+    cnt = charsLen**l
+    for num in range(0, cnt):
+        str = dec_to_charstr(num)
+        prefix = ""
+        if (len(str) < l):
+            prefix = chars[0] * (l - len(str))
+        yield prefix + str
+
+def dec_to_charstr(num):
+    base = charsLen
+    base_str = ""
+    while num > 0:
+        dig = int(num % base)
+        base_str += chars[dig]
+        num //= base
+
+    base_str = base_str[::-1]  #To reverse the string
+    return base_str
 
 def write_string(s, out_file):
     if (out_file is None):
